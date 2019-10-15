@@ -1,7 +1,9 @@
 let tasks = []
+/*
+// ------------------ FIRST SOLUTION -----------\\
 // 1. Get input value
 
-function getPrintVal() {
+function getTask() {
 	let task = document.getElementById('input-val').value
 	if (task != '') tasks.push(task)
 
@@ -27,7 +29,7 @@ function getPrintVal() {
 	}
 }
 
-// 4. Add delete button to remove a task frpm an array
+// 2. Add delete button to remove a task from an array
 function deleteTask(e) {
 	// Retrieving value from parent
 	let parentValue = e.target.parentElement.textContent
@@ -42,7 +44,7 @@ function deleteTask(e) {
 	e.target.parentNode.innerHTML = ''
 }
 
-// 5. Add a line trough for finished tasks
+// 3. Add a line trough for finished tasks
 function markAsCompleted(e) {
 	if (e.target.style.textDecoration === 'none') {
 		e.target.style.textDecoration = 'line-through'
@@ -50,4 +52,34 @@ function markAsCompleted(e) {
 		e.target.style.textDecoration = 'none'
 	}
 }
-// 6. Save tasks to local storage
+// 4. Save tasks to local storage
+*/
+
+// ----------------- SECOND APPRAOCH ---------------- //
+// ---------- use insetAdjacentHTML ---------------\\
+function getTask() {
+	let task = document.getElementById('input-val').value
+	if (task !== '') tasks.push(task)
+
+	if (task === '') {
+		alert('Please enter the task!')
+	} else {
+		let taskElement = `
+		<li class="task-list__item">${task}<button class="btn">x</button></li>
+		`
+		let tasksList = document.getElementById('tasks')
+
+		tasksList.insertAdjacentHTML('beforeend', taskElement)
+
+		tasksList.addEventListener('click', markAsCompleted)
+		document.getElementById('input-val').value = ''
+	}
+}
+
+function markAsCompleted(e) {
+	e.target.style.textDecoration === 'none'
+		? (e.target.style.textDecoration = 'line-through')
+		: (e.target.style.textDecoration = 'none')
+}
+
+function clearInput(e) {}
