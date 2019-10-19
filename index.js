@@ -1,7 +1,7 @@
-let tasks = []
-/*
 // ------------------ FIRST SOLUTION -----------\\
 // 1. Get input value
+/*
+let tasks = []
 
 function getTask() {
 	let task = document.getElementById('input-val').value
@@ -56,30 +56,44 @@ function markAsCompleted(e) {
 */
 
 // ----------------- SECOND APPRAOCH ---------------- //
-// ---------- use insetAdjacentHTML ---------------\\
-function getTask() {
-	let task = document.getElementById('input-val').value
-	if (task !== '') tasks.push(task)
 
-	if (task === '') {
-		alert('Please enter the task!')
-	} else {
+let tasks = []
+const input = document.getElementById('input-val')
+
+function getTask(e) {
+	let task = input.value
+	if (task !== '') {
+		tasks.push(task)
 		let taskElement = `
 		<li class="task-list__item">${task}<button class="btn">x</button></li>
 		`
 		let tasksList = document.getElementById('tasks')
-
 		tasksList.insertAdjacentHTML('beforeend', taskElement)
 
 		tasksList.addEventListener('click', markAsCompleted)
-		document.getElementById('input-val').value = ''
+		// Netinka, nes pagal id selectina tik viena
+		// document
+		// 	.getElementById('deleteBtn')
+		// 	.addEventListener('click', deleteTask)
+
+		input.value = ''
+	} else {
+		alert('Please enter the task!')
 	}
 }
 
+input.addEventListener('keyup', e => {
+	if (e.keyCode === 13) {
+		getTask()
+	}
+})
+
 function markAsCompleted(e) {
-	e.target.style.textDecoration === 'none'
-		? (e.target.style.textDecoration = 'line-through')
-		: (e.target.style.textDecoration = 'none')
+	if (e.target.style.textDecoration === 'none') {
+		e.target.style.textDecoration = 'line-through'
+	} else {
+		e.target.style.textDecoration = 'none'
+	}
 }
 
-function clearInput(e) {}
+function deleteTask() {}
